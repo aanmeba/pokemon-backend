@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/pokemons")
-public class PokemonController {
+public class PokemonController { 
 	
 	@Autowired
 	private PokemonService pokemonService;
