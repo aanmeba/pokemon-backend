@@ -165,20 +165,20 @@ public class PokemonServiceTest {
 			.given(pokemonRepository.findById(ArgumentMatchers.anyLong()))
 			.willReturn(Optional.of(existingPokemon));
         
-        Optional<Pokemon> received = underTest.updateById(id, updatePokemonDTO);
+        underTest.updateById(id, updatePokemonDTO);
 		
 		ArgumentCaptor<Pokemon> pokemonArgument =
 				ArgumentCaptor.forClass(Pokemon.class);
 		
 		verify(pokemonRepository).save(pokemonArgument.capture());
-             
         
-        assertThat(received.get().getName()).isEqualTo(updatePokemonDTO.getName());
-        
-        
-//        assertThat(received.get().getName()).isEqualTo(updatePokemonDTO.getName());
-//        assertThat(received.get().getHp()).isEqualTo(updatePokemonDTO.getHp());
-        
+		Pokemon updatedPokemon = pokemonArgument.getValue();
+		
+		assertThat(updatedPokemon.getName()).isEqualTo(updatePokemonDTO.getName());
+		assertThat(updatedPokemon.getType()).isEqualTo(updatePokemonDTO.getType());
+		assertThat(updatedPokemon.getHp()).isEqualTo(updatePokemonDTO.getHp());
+		assertThat(updatedPokemon.getImageLink()).isEqualTo(updatePokemonDTO.getImageLink());
+		
 	}
 	
 	@Test

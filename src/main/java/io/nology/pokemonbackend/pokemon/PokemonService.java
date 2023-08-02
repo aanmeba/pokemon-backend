@@ -119,10 +119,17 @@ public class PokemonService {
 				existingPokemon.setEvolutionId(pokeEvoId);
 			}
 			
-//			modelMapper.map(data, existingPokemon);
-			Pokemon optionalPokemon = this.pokemonRepository.save(existingPokemon);
-			return Optional.ofNullable(optionalPokemon);
+			// .of -> .ofNullable
+			return Optional.ofNullable(this.pokemonRepository.save(existingPokemon));
+			
+//			if (maybePokemon.isPresent()) {
+//				Pokemon existingPokemon = maybePokemon.get();
+//				modelMapper.map(data, existingPokemon);
+//				return Optional.of(this.pokemonRepository.save(existingPokemon));
+//			}
+		} else {
+			
+			return maybePokemon;
 		}
-		return maybePokemon;
 	}
 }
