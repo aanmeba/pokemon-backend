@@ -13,7 +13,7 @@ public interface PokemonRepository extends JpaRepository<Pokemon, Long>{
 	Optional<List<Pokemon>> findByType(@Param("type") String type);
 	
 	@Query(nativeQuery = true, value = "SELECT * FROM pokemons WHERE hp >= :hp")
-	Optional<List<Pokemon>> findByHp(@Param("hp") String hp);
+	Optional<List<Pokemon>> findByHp(@Param("hp") Integer hp);
 	
 //	@Query(nativeQuery = true, value = "SELECT * FROM pokemons WHERE hp >= :minHp")
 //	Optional<List<Pokemon>> findByHp(@Param("minHp") String minHp);

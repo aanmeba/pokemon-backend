@@ -20,7 +20,7 @@ import io.nology.pokemonbackend.exception.NotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/pokemons")
+@RequestMapping("/pokemons2")
 public class PokemonController { 
 	
 	@Autowired
@@ -28,6 +28,7 @@ public class PokemonController {
 	
 	@PostMapping
 	public ResponseEntity<Pokemon> createPokemon(@Valid @RequestBody CreatePokemonDTO data) {
+		System.out.println("post mapping called");
 		Pokemon createdPokemon = this.pokemonService.create(data);
 		
 		return new ResponseEntity<>(createdPokemon, HttpStatus.CREATED);
@@ -35,6 +36,7 @@ public class PokemonController {
 	
 	@GetMapping
 	public ResponseEntity<List<Pokemon>> getAllPokemons() {
+		System.out.println("get mapping called");
 		List<Pokemon> allPokemons = this.pokemonService.findAll();
 		
 		return new ResponseEntity<>(allPokemons, HttpStatus.OK);
@@ -60,7 +62,7 @@ public class PokemonController {
 	}
 	
 	@GetMapping(params = "hp")
-	public ResponseEntity<List<Pokemon>> getByHp(@RequestParam String hp) {
+	public ResponseEntity<List<Pokemon>> getByHp(@RequestParam Integer hp) {
 		Optional<List<Pokemon>> pokemonsByHp = this.pokemonService.findByHp(hp);
 		if (pokemonsByHp.isEmpty()) {
 			throw new NotFoundException(String.format("not found any pokemon in %s HP", hp));

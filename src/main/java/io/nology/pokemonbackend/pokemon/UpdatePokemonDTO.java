@@ -16,19 +16,19 @@ public class UpdatePokemonDTO {
 	@Setter
 	String type;
 	
-	@Pattern(regexp = "^[1-9]+[0-9]*$", message="HP cannot be an empty string")
+//	@Pattern(regexp = "^[1-9]+[0-9]*$", message="HP cannot be an empty string")
 	@Getter
 	@Setter
-	String hp;
+	Integer hp;
 	
 	@Pattern(regexp = "^(?=\\S).*$", message="Image link cannot be an empty string")
 	@Getter
 	@Setter
 	String imageLink;
 	
-	@Pattern(regexp = "^[1-9]+[0-9]*$", message="Evolution ID cannot be an empty string")
+//	@Pattern(regexp = "^[1-9]+[0-9]*$", message="Evolution ID cannot be an empty string")
 	@Getter
 	@Setter
-	String evolutionId;
+	Integer evolutionId;
 
 }

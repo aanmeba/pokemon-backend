@@ -18,6 +18,7 @@ public class PokemonService {
 	
 	@Autowired
 	private PokemonRepository pokemonRepository;
+
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -40,11 +41,14 @@ public class PokemonService {
 			throw new IllegalArgumentException("Please enter a valid type");
 		}
 		
+		System.out.println("create method called");
+		System.out.println(data.getName());
 		String pokeName = data.getName().trim();
 		String pokeType = data.getType().trim();
-		String pokeHp = data.getHp().trim();
 		String pokeImage = data.getImageLink().trim();
-		String pokeEvoId = data.getEvolutionId().trim();
+		Integer pokeHp = data.getHp();
+		Integer pokeEvoId = data.getEvolutionId();
+		
 		Pokemon newPokemon = new Pokemon(
 				pokeName, pokeType, pokeHp, pokeImage, pokeEvoId
 				);
@@ -70,7 +74,7 @@ public class PokemonService {
 		return maybePokemons;
 	}
 	
-	public Optional<List<Pokemon>> findByHp(String hp) {
+	public Optional<List<Pokemon>> findByHp(Integer hp) {
 		Optional<List<Pokemon>> maybePokemons = this.pokemonRepository.findByHp(hp);
 		
 		return maybePokemons;
@@ -88,7 +92,9 @@ public class PokemonService {
 	}
 	
 	public Optional<Pokemon> updateById(Long id, UpdatePokemonDTO data) {
-		boolean validPokeType = this.isValidType(data.getType());
+		
+		boolean validPokeType = (data.getType() != null) && this.isValidType(data.getType());
+		
 		
 		if (!validPokeType) {
 			throw new IllegalArgumentException("Please enter a valid type");
@@ -98,8 +104,24 @@ public class PokemonService {
 		
 		if (maybePokemon.isPresent()) {
 			Pokemon existingPokemon = maybePokemon.get();
-			modelMapper.map(data, existingPokemon);
-			return Optional.of(this.pokemonRepository.save(existingPokemon));
+			String pokeName = data.getName().trim();
+			String pokeType = data.getType().trim();
+			String pokeImage = data.getImageLink().trim();
+			Integer pokeHp = data.getHp();
+			
+			existingPokemon.setName(pokeName);
+			existingPokemon.setType(pokeType);
+			existingPokemon.setImageLink(pokeImage);
+			existingPokemon.setHp(pokeHp);
+			
+			if (data.getEvolutionId() != null) {				
+				Integer pokeEvoId = data.getEvolutionId();
+				existingPokemon.setEvolutionId(pokeEvoId);
+			}
+			
+//			modelMapper.map(data, existingPokemon);
+			Pokemon optionalPokemon = this.pokemonRepository.save(existingPokemon);
+			return Optional.ofNullable(optionalPokemon);
 		}
 		return maybePokemon;
 	}

@@ -30,7 +30,7 @@ public class Pokemon {
 	@Column
 	@Getter
 	@Setter
-	private String hp;
+	private Integer hp;
 	
 	@Column
 	@Getter
@@ -40,10 +40,10 @@ public class Pokemon {
 	@Column(nullable = true)
 	@Getter
 	@Setter
-	private String evolutionId;
+	private Integer evolutionId;
 	
 	public Pokemon() {};
-	public Pokemon(String name, String type, String hp, String imageLink, String evolutionId) {
+	public Pokemon(String name, String type, Integer hp, String imageLink, Integer evolutionId) {
 		super(); // what it does here?
 		this.name = name;
 		this.type = type;

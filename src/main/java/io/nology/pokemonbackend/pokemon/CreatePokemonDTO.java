@@ -1,6 +1,7 @@
 package io.nology.pokemonbackend.pokemon;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +17,10 @@ public class CreatePokemonDTO {
 	@Setter
 	private String type;
 	
-	@NotBlank
+	@NotNull
 	@Getter
 	@Setter
-	private String hp;
+	private Integer hp;
 	
 	@NotBlank
 	@Getter
@@ -28,9 +29,9 @@ public class CreatePokemonDTO {
 	
 	@Getter
 	@Setter
-	private String evolutionId;
+	private Integer evolutionId;
 	
-	public CreatePokemonDTO(String name, String type, String hp, String imageLink, String evolutionId) {
+	public CreatePokemonDTO(String name, String type, Integer hp, String imageLink, Integer evolutionId) {
 		this.name = name;
 		this.type = type;
 		this.hp = hp;
