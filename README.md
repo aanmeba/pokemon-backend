@@ -42,6 +42,12 @@ The user should be able to do the following:
 - Filter Pokemon by `minHp` (Query Parameter => e.g: `myurl?minHp=100`)
   - how to use different param, `minHp` instead of `hp`?
 
+## Tech Stack
+
+- Java
+- Spring Boot
+- JUnit
+
 ## Known issues
 
 - Querying isn't handled properly with NotFoundException. Currenlty it returns an empty array, `[]`
